@@ -184,16 +184,16 @@ function dumpStrView(Num) {
             var fov = 60;
             var zoom = 0;
             var url = "https://maps.googleapis.com/maps/api/streetview?size=" + width + "x" + height + "&location=" + lat1 + "," + lng1 + "&heading=" + head + "&pitch=" + pitch + "&fov=" + fov + "&zoom=" + zoom;
-            nwin.document.write("<img src=" + url + "/>")
-            nwin.document.write("<br>")
-            //nwin.document.write(calc_distance(lat1, lat2, lng1, lng2) + "m進む")
-            //nwin.document.write(head + ", ")
-            //nwin.document.write(lat1 + ", ")
-            //nwin.document.write(lng1 + ", ")
-            nwin.document.write("<br>")
-            index = index + 1;
-        }
-    }
+                        nwin.document.write("<img src=" + url + "/>")
+                        nwin.document.write("<br>")
+                        //nwin.document.write(calc_distance(lat1, lat2, lng1, lng2) + "m進む")
+                        //nwin.document.write(head + ", ")
+                        //nwin.document.write(lat1 + ", ")
+                        //nwin.document.write(lng1 + ", ")
+                        nwin.document.write("<br>")
+                        index = index + 1;
+                    }
+                }
     nwin.document.writeln("目的地です");
     nwin.document.writeln("<br>");
     nwin.document.write("</FONT>");
