@@ -28,8 +28,7 @@ class RoutesController < ApplicationController
 
     respond_to do |format|
       if @route.save
-        format.html { redirect_to @route, notice: 'Route was successfully created.' }
-        format.json { render :show, status: :created, location: @route }
+        head ok
       else
         format.html { render :new }
         format.json { render json: @route.errors, status: :unprocessable_entity }

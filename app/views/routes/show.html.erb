@@ -10,5 +10,10 @@
   <%= @route.goal %>
 </p>
 
+<p>
+  <strong>作成日時:</strong>
+  <%= @route.created_at %>
+</p>
+
 <%= link_to 'Edit', edit_route_path(@route) %> |
 <%= link_to 'Back', routes_path %>
