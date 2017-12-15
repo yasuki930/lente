@@ -1,22 +1,114 @@
-<FONT size="1">
-    <div id="site-box">
-    <div id="map" style="width: 800px; height: 600px;"></div>
-    <div id="information">
-        <input id="origin" type="textbox" value="大岡山駅" size="40" ><br />
-        <input id="destination" type="textbox" value="石川台駅" size="40" ><br />
-        <input type="button" value="SEARCH" onclick="searchRoute()">
-    </div>
-    <%= form_for(Route.new, data: { remote: true }) do |f| %>
-       <%= f.text_field :start %><br>
-       <%= f.text_field :goal %>
-       <%= f.submit %>
-    <% end %>
-<!--        <div id="mark">
-    <input type="button" value="Marker" onclick="plotLoop((route_result.length-1), 0)">
-    <br>   -->
-    <input type="button" value="Marker+" onclick="plotLoop1(2)">
-    <br>
-    <input type="button" value="DUMP" onclick="dumpStrView(2)">
-    </div>
-    </div>
-</FONT>
+<% if user_signed_in? %>
+  <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to "ログイン", new_user_session_path %>
+<% end %>
+<div style="text-align:center">
+<img src="https://dl.dropboxusercontent.com/u/70372576/Lente.png" width="300" height="190" alt="">
+</div>
+<P Align="center"><font size="6">Lente  -レンテ-</font>
+<P Align="center"><font size="5">スペイン語で「レンズ」という意味。</font>
+<P Align="center"><font size="5">見えづらい方の世界を明るくします。</font>
+<P Align="center"><font size="5"><font color="#ffff00">Lenteは</font></P>
+<P Align="center"><font size="5"><font color="#ffff00">事前に目的地を設定し、地図情報をスムーズに調べるためのサービスです。</font></P>
+<P Align="center"><font size="5"><font color="#ffff00">目的地までの経路や経路の周辺の建物の様子を調べることが出来ます。</font></P>
+
+<P Align="center"><font size="4">お年寄りの方、道に迷いやすい方や、</P>
+<P Align="center">例えば、以下のような弱視の方にもご利用いただけます。</P>
+<style type="text/css">
+.content {
+text-align:center;
+}
+
+.content span {
+display:inline-block;
+text-align:left;
+}
+</style>
+
+<p class="content"><span>
+●建物に近づいても看板の文字が見えない。  <br>
+●事前にルート上の目印を数えて覚えておく。<br>
+●視覚障がい者のためのヘルパーなしで出かける。
+</span></p>
+
+<P Align="center">また</P>
+<style type="text/css">
+.content {
+text-align:center;
+}
+
+.content span {
+display:inline-block;
+text-align:left;
+}
+</style>
+
+<p class="content"><span>
+●普段からビジネスで出かける用事が多い。        <br>
+●毎回、行き方を徹底的に調べる。                <br>
+●複数のアプリを使っている。                    <br>
+</span></p>
+
+<br>
+<P Align="center">でも<br/>
+<style type="text/css">
+.content {
+text-align:center;
+}
+
+.content span {
+display:inline-block;
+text-align:left;
+}
+</style>
+
+<p class="content"><span>
+<P Align="center">○待ち合わせの場所までの道順をしっかり調べても、</P>
+<P Align="center">当日ちょっと道を間違えたことに気づかずに迷ってしまった！！</P>
+<P Align="center">○明日の道順を調べるのが大変だ。時間がない！</P>
+</span></p>
+<P Align="center">そんなことはありませんか？<br/>
+
+<br><div style="margin-top:3em">
+<P><P Align="center">Lenteは</P></P></div>
+<P Align="center">簡単な操作で、実際の外出をイメージしやすい経路情報を提供し</P>
+<P Align="center">あなたのスムーズな外出をサポートします。</P>
+
+<P Align="center">Lenteと一緒に出かけてみませんか？</P></font>
+
+<br><div style="margin-top:3em">
+<P Align="center"><font size="5">サービスの概要 </font></P></div>
+
+<style type="text/css">
+.content {
+text-align:center;
+}
+
+.content span {
+display:inline-block;
+text-align:left;
+}
+</style>
+
+<p class="content"><span>
+<P Align="center"><font size="5"> ①経路周辺の建物の写真が一覧で把握できます</P></font>
+<P Align="center"><font size="4"> また次の曲がり角まで何mか、曲がり角でどの方向に曲がるのかテキストで表示するため、音声情報として利用することも出来ます。</font></P>
+
+<P Align="center"><font size="5">②音声や画像付き地図データを表示します </font></P>
+<P Align="center"><font size="4">事前に、出発地と目的地を入力し経路を検索できます。 </P>
+<P Align="center">検索で得られた経路周辺情報はスマートフォンにダウンロードし、
+確認することもできます。</P>
+</span></p>
+
+<P Align="center">※あくまでも、目の見えにくい人の歩行の補助になるもので、
+現在地と目的地とのルート補整を行うものではありません。 </font></P>
+
+
+<br><div style="margin-top:3em">
+<P Align="center"><font size="5">サービスのイメージをこちらの動画でご確認ください。</P></div>
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BpGNa22Z3UQ"></iframe>
+</div>
+</div>
+
