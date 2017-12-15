@@ -2,9 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 body {
-  background-color: #090A40;
+  .bg-color-navy {
+    background-color: #090A40;
+    p {
+        color: white;
+    }
+  }
+  .bg-color-white {
+    background-color: white;
+  }
 }
 
-p {
- color: white;
-}

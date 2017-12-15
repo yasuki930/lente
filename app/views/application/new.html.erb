@@ -1,0 +1,26 @@
+<p><font size="7">Lente</font></p>
+<!--mapと検索ボタン部分のdiv-->
+<div id="mapandkensaku">
+    <!--地図本体の描画-->
+    <div id="map" style="width: 700px; height: 450px;"></div>
+    <!--出発地の文字とボタンの描画-->
+    <p>出発地</p>
+    <input id="start" type="textbox" size="40" value="大岡山駅"><br>
+    <!--目的地の文字とボタンの描画-->
+    <p>目的地</p>
+    <input id="end" type="textbox" size="40" value="駒沢大学駅"><br>
+    <!--一気に2つやることにしました一応残しておく-->
+    <!--ルート検索ボタン-->
+    <!--<input type="button" value="ルート検索" onclick="calcRoute()"><br>-->
+    <!--案内図作成ボタン-->
+    <!--<input type="button" value="案内図作成" onclick="route_hyouzi()">-->
+    <input type="button" value="ルート検索" onclick="calcRoute()">
+</div>
+<!--検索結果，ルート案内部分のdiv-->
+<div id="annai">
+    <div id="directionsPanel" style="width: 500px; height: 500px"></div>
+</div>
+<!--lente本体がここに来るはず…-->
+<div id="annaizu"style="width:700px; height:500px; overflow:auto;">
+    <!--ここにif文を使って写真，案内文の順でステップごとに表示させたい-->
+</div>
