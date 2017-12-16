@@ -1,6 +1,10 @@
 <!--メイン画面のhtmlボディ部分-->
 <div class='bg-color-white'>
 <p><font size="7">Lente</font></p>
+<!-- ログインしたらログアウトボタンを表示-->
+<% if user_signed_in? %>
+  <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+<% end %>
         <div id="mapandkensaku">
             <!--地図本体の描画-->
             <div id="map" style="width: 700px; height: 450px;"></div>
