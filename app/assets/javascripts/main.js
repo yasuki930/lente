@@ -1,6 +1,10 @@
+//検索されたルート
+var route;
+
 // 案内図作成用ファンクション
 function annaisakusei(directionResult) {
   var myRoute = directionResult.routes[0].legs[0];
+  route = myRoute;
   var target = document.getElementById("annaizu");
   // 案内図に書き込み
   // 出発の文章,距離と時間を大体だけど把握
@@ -63,8 +67,53 @@ function calcRoute() {
       directionsDisplay.setDirections(response); //ルート色塗り
       directionsDisplay.setPanel(document.getElementById('directionsPanel')); //案内文作成
       annaisakusei(response); //案内図作成
+      convenience_store_search();//コンビニ位置検索と表示
+ 
     }
   });
+function convenience_store_search (){//コンビニ位置の追加
+var infowindow;
+
+  infowindow = new google.maps.InfoWindow();
+  var service = new google.maps.places.PlacesService(map);
+  
+  var pathList = [];
+  for (var i = 0; i < route.steps.length; i++) {
+    var stepPoint = {lat: route.steps[i].path[0].lat(), lng: route.steps[i].path[0].lng()};
+    pathList.push(stepPoint);
+  }
+  
+  console.log(pathList);
+  for(i = 0; i < pathList.length; i++) {
+    service.nearbySearch({
+      location: pathList[i],
+      radius: 500,
+      type: ['convenience_store']
+    }, callback);
+  }
+
+}
+
+function callback(results, status) {
+  if (status === google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      createMarker(results[i]);
+    }
+  }
+}
+
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  });
+
+  google.maps.event.addListener(marker, 'click', function(){
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+};
   
   saveCustomerData(start, end);
 }
