@@ -1,3 +1,22 @@
+<style type="text/css">
+   body {
+           font-size: 100%;
+                /*line-height: 100%;*/
+           width: 80%;
+           }
+        #mapandkensaku {
+            float: left;
+            line-height: 1%;
+            width:70%; 
+            height:100%;
+           }
+        #annaizu {
+            float: right;
+            width:30%;
+            height:100%;
+        }
+</style>
+
 <!--メイン画面のhtmlボディ部分-->
 <div class='bg-color-white'>
 <p><font size="7">Lente</font></p>
@@ -6,8 +25,7 @@
   <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
 <% end %>
         <div id="mapandkensaku">
-            <!--地図本体の描画-->
-            <div id="map" style="width: 700px; height: 450px;"></div>
+           
             <!--出発地の文字とボタンの描画-->
             <p>出発地</p>
             <input id="start" type="textbox" size="80" value="大岡山駅" style="width:10em;height:1em;font-size:200%"><br>
@@ -20,11 +38,11 @@
             <!--案内図作成ボタン-->
             <!--<input type="button" value="案内図作成" onclick="route_hyouzi()">-->
             <input type="button" value="ルート検索" onclick="calcRoute()" style="width:10em;height:3em;font-size:150%">
+            <!--地図本体の描画-->
+            <div id="map" style="width: 500px; height: 300px;"></div>
+            <div id="directionsPanel" style="width: 700px; height: 1200px"></div>
         </div>
-        <div id="annai">
-            <div id="directionsPanel" style="width: 500px; height: 500px"></div>
-        </div>
-        <div id="annaizu"style="width:700px;">
+        <div id="annaizu"style="width:300px;">
             <!--ここにif文を使って写真，案内文の順でステップごとに表示させたい-->
         </div>
 </div>
