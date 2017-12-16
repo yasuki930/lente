@@ -25,14 +25,10 @@ class RoutesController < ApplicationController
   # POST /routes.json
   def create
     @route = Route.new(route_params)
-
-    respond_to do |format|
-      if @route.save
-        head ok
-      else
-        format.html { render :new }
-        format.json { render json: @route.errors, status: :unprocessable_entity }
-      end
+    if @route.save
+      head :ok
+    else
+      head :ng
     end
   end
 
@@ -67,7 +63,8 @@ class RoutesController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    #以下で出発地、目的地とユーザーの情報を一緒に保持、データベース格納用
     def route_params
-      params.require(:route).permit(:start, :goal)
+      params.require(:route).permit(:start, :goal, :user_id)
     end
 end

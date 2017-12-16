@@ -65,4 +65,19 @@ function calcRoute() {
       annaisakusei(response); //案内図作成
     }
   });
+  
+  saveCustomerData(start, end);
+}
+
+//顧客の入力した目的地、出発地、ユーザーIDを保存
+function saveCustomerData(start, goal) {
+  // ログインしているユーザーIDを取得
+  var user_id = document.getElementById('user_id').value;
+  // 非同期でポスト
+  $.ajax({
+    url: '/routes',
+    method: 'POST',
+    data: { route: { start: start, goal: goal, user_id: user_id } }
+  });
+  
 }
