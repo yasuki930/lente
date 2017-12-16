@@ -1,13 +1,35 @@
 <!DOCTYPE html>
-<html>      
-<head>
-  <title>Workspace</title>
-  <script type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGqAri4cCw1hQu66nIEjT5d-uk8cV_XD0&libraries=places&geometry" charset="utf-8"></script>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  <!--スタイル追加-->
-  <style type="text/css">
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Freelancer - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/freelancer.min.css" rel="stylesheet">
+    <script type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGqAri4cCw1hQu66nIEjT5d-uk8cV_XD0&libraries=places&geometry" charset="utf-8"></script>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <!--スタイル追加-->
+    <!--
+        <style type="text/css">
             body {
                 font-size: 120%;
                 /*line-height: 100%;*/
@@ -24,11 +46,27 @@
                 width:30%;
                 height:100%;
             }
-        </style>
-</head>
-<body onload="initialize()" link="#ffff00" vlink="#ffff00" alink="##ffff00">
+    </style>
+    -->
 
-<%= yield %>
+  </head>
+  <body id="page-top" onload="initialize()" link="#ffff00" vlink="#ffff00" alink="##ffff00">
+    <%= yield %>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-</body>
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/freelancer.min.js"></script>
+
+  </body>
+
 </html>
