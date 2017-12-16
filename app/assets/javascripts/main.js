@@ -11,10 +11,20 @@ function annaisakusei(directionResult) {
   target.innerHTML += "<img src=" + url_start + "><br>";
   console.log(myRoute);
   // for文でステップ毎にみてるもし書くならここで緯度経度計算して方向ださせる
-  for (var i = 0; i < myRoute.steps.length; i++) {
-    var url = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.steps[i].end_location.lat() + "," + myRoute.steps[i].end_location.lng();
-    // var url = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.steps[i].end_location.lat() + "," + myRoute.steps[i].end_location.lng() + heading=koko;
-    target.innerHTML += "ステップ"+[i+1]+myRoute.steps[i].instructions+"<br><img src=" + url + "><br>";
+  for (var i = 0; i < myRoute.steps.length ; i++) {
+    if(i < myRoute.steps.length-1){ //初めから最後の一つ前のステップまでは今いるところから次のステップの方向を示す．
+      var from = {lat: myRoute.steps[i].end_location.lat, lng: myRoute.steps[i].end_location.lng};
+      var to = {lat: myRoute.steps[i+1].end_location.lat, lng: myRoute.steps[i+1].end_location.lng};
+      var houkou = google.maps.geometry.spherical.computeHeading(from, to);
+      var url = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.steps[i].end_location.lat() + "," + myRoute.steps[i].end_location.lng() + "&heading=" + houkou;
+      target.innerHTML += "ステップ"+[i+1]+myRoute.steps[i].instructions+"<br><img src=" + url + "><br>";
+    }else{ //最後のステップだけは目的地を向かうようにしてる
+      var from_g = {lat: myRoute.steps[i-1].end_location.lat, lng: myRoute.steps[i-1].end_location.lng};
+      var to_g = {lat: myRoute.steps[i].end_location.lat, lng: myRoute.steps[i].end_location.lng};
+      var houkou_g = google.maps.geometry.spherical.computeHeading(from_g, to_g);
+      var url_g = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.steps[i].end_location.lat() + "," + myRoute.steps[i].end_location.lng() + "&heading=" + houkou_g;
+      target.innerHTML += "ステップ"+[i+1]+myRoute.steps[i].instructions+"<br><img src=" + url_g + "><br>";
+    }
   }
   // 到着の文章
   target.innerHTML += "到着です！お疲れ様でした．";
