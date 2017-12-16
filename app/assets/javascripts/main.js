@@ -135,11 +135,13 @@ function callback(results, status) {
 
 function createMarker(place) {
   var placeLoc = place.geometry.location;
-  var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+  var host = location.hostname ;
+  var protocol = location.protocol ;
+  var imageurl = protocol + "//" + host + "/conbini15.png" ;
   var marker = new google.maps.Marker({
     map: map,
     position: place.geometry.location,
-    icon: image
+    icon: imageurl
   })
 
   google.maps.event.addListener(marker, 'click', function(){
