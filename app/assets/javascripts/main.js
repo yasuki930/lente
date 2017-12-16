@@ -1,6 +1,5 @@
 //検索されたルート
 var route;
-
 // 案内図作成用ファンクション
 function annaisakusei(directionResult) {
   var myRoute = directionResult.routes[0].legs[0];
@@ -10,24 +9,24 @@ function annaisakusei(directionResult) {
   // 出発の文章,距離と時間を大体だけど把握
   target.innerHTML = "出発進行！距離は" + myRoute.distance.text + "で" +"時間は約"+ myRoute.duration.text + "かかります．";
   // 多分ここに出発地点の写真いるのでstart地点のURLの定義，これも方向いるけどあとで
-  var url_start = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.start_location.lat() + "," + myRoute.start_location.lng();
+  var from_s = {lat: myRoute.start_location.lat, lng: myRoute.start_location.lng};
+  var to_s = {lat: myRoute.steps[0].end_location.lat, lng: myRoute.steps[0].end_location.lng};
+  var houkou_s = google.maps.geometry.spherical.computeHeading(from_s, to_s);
+  var url_start = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.start_location.lat() + "," + myRoute.start_location.lng() + "&heading=" + houkou_s;
   // 書き出し
   target.innerHTML += "<img src=" + url_start + "><br>";
-  console.log(myRoute);
   // for文でステップ毎にみてるもし書くならここで緯度経度計算して方向ださせる
   for (var i = 0; i < myRoute.steps.length ; i++) {
-    if(i < myRoute.steps.length-1){ //初めから最後の一つ前のステップまでは今いるところから次のステップの方向を示す．
-      var from = {lat: myRoute.steps[i].end_location.lat, lng: myRoute.steps[i].end_location.lng};
-      var to = {lat: myRoute.steps[i+1].end_location.lat, lng: myRoute.steps[i+1].end_location.lng};
+    if(0 < i){ //ステップ0から最後のステップまでは前のステップから今の方向を示す．
+      var from = {lat: myRoute.steps[i-1].end_location.lat, lng: myRoute.steps[i-1].end_location.lng};
+      var to = {lat: myRoute.steps[i].end_location.lat, lng: myRoute.steps[i].end_location.lng};
       var houkou = google.maps.geometry.spherical.computeHeading(from, to);
       var url = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.steps[i].end_location.lat() + "," + myRoute.steps[i].end_location.lng() + "&heading=" + houkou;
-      target.innerHTML += "ステップ"+[i+1]+myRoute.steps[i].instructions+"<br><img src=" + url + "><br>";
-    }else{ //最後のステップだけは目的地を向かうようにしてる
-      var from_g = {lat: myRoute.steps[i-1].end_location.lat, lng: myRoute.steps[i-1].end_location.lng};
-      var to_g = {lat: myRoute.steps[i].end_location.lat, lng: myRoute.steps[i].end_location.lng};
-      var houkou_g = google.maps.geometry.spherical.computeHeading(from_g, to_g);
-      var url_g = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.steps[i].end_location.lat() + "," + myRoute.steps[i].end_location.lng() + "&heading=" + houkou_g;
-      target.innerHTML += "ステップ"+[i+1]+myRoute.steps[i].instructions+"<br><img src=" + url_g + "><br>";
+      target.innerHTML += "ステップ"+[i+1]+myRoute.steps[i].instructions+"．距離は"+myRoute.steps[i].distance.text + "です．<br><img src=" + url + "><br>";
+    }else{ //最初のステップだけは目的地を向くようにしてる
+      var url_g = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.steps[0].end_location.lat() + "," + myRoute.steps[0].end_location.lng() + "&heading=" + houkou_s;
+      target.innerHTML += "ステップ"+[i+1]+myRoute.steps[i].instructions+"．距離は"+myRoute.steps[i].distance.text + "です．<br><img src=" + url_g + "><br>";
+    console.log(from)
     }
   }
   // 到着の文章
@@ -83,7 +82,9 @@ function calcRoute() {
       directionsDisplay.setPanel(document.getElementById('directionsPanel')); //案内文作成
       annaisakusei(response); //案内図作成
       convenience_store_search();//コンビニ位置検索と表示
-
+    }else{
+       var target = document.getElementById("annaizu");
+       target.innerHTML = "検索に失敗しました．";
     }
   });
   saveCustomerData(start, end);
@@ -113,7 +114,7 @@ function convenience_store_search (){//コンビニ位置の追加
     pathList.push(stepPoint);
   }
 
-  console.log(pathList);
+  // console.log(pathList);
   for(i = 0; i < pathList.length; i++) {
     service.nearbySearch({
       location: pathList[i],
