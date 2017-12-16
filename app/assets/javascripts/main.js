@@ -32,10 +32,10 @@ function annaisakusei(directionResult) {
   }
   // 到着の文章
   target.innerHTML += "到着です！お疲れ様でした．";
-//   // 多分ここに到着地点の写真いるので到着地点のURLの定義って思ってたけど，最後の写真と同じっぽいのでやめです
-//   var url_end = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.end_location.lat() + "," + myRoute.end_location.lng();
-//   // 書き出し
-//   target.innerHTML += "<img src=" + url_end + ">";
+  //   // 多分ここに到着地点の写真いるので到着地点のURLの定義って思ってたけど，最後の写真と同じっぽいのでやめです
+  //   var url_end = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.end_location.lat() + "," + myRoute.end_location.lng();
+  //   // 書き出し
+  //   target.innerHTML += "<img src=" + url_end + ">";
 }
 // Onload時処理
 var map;      //マップのインスタンス
@@ -78,21 +78,36 @@ function calcRoute() {
       directionsDisplay.setPanel(document.getElementById('directionsPanel')); //案内文作成
       annaisakusei(response); //案内図作成
       convenience_store_search();//コンビニ位置検索と表示
- 
+
     }
   });
+  saveCustomerData(start, end);
+}
+
+//顧客の入力した目的地、出発地、ユーザーIDを保存
+function saveCustomerData(start, goal) {
+  // ログインしているユーザーIDを取得
+  var user_id = document.getElementById('user_id').value;
+  // 非同期でポスト
+  $.ajax({
+    url: '/routes',
+    method: 'POST',
+    data: { route: { start: start, goal: goal, user_id: user_id } }
+  })
+}
+
 function convenience_store_search (){//コンビニ位置の追加
-var infowindow;
+  var infowindow;
 
   infowindow = new google.maps.InfoWindow();
   var service = new google.maps.places.PlacesService(map);
-  
+
   var pathList = [];
   for (var i = 0; i < route.steps.length; i++) {
     var stepPoint = {lat: route.steps[i].path[0].lat(), lng: route.steps[i].path[0].lng()};
     pathList.push(stepPoint);
   }
-  
+
   console.log(pathList);
   for(i = 0; i < pathList.length; i++) {
     service.nearbySearch({
@@ -117,26 +132,10 @@ function createMarker(place) {
   var marker = new google.maps.Marker({
     map: map,
     position: place.geometry.location
-  });
+  })
 
   google.maps.event.addListener(marker, 'click', function(){
     infowindow.setContent(place.name);
     infowindow.open(map, this);
-  });
-};
-  
-  saveCustomerData(start, end);
-}
-
-//顧客の入力した目的地、出発地、ユーザーIDを保存
-function saveCustomerData(start, goal) {
-  // ログインしているユーザーIDを取得
-  var user_id = document.getElementById('user_id').value;
-  // 非同期でポスト
-  $.ajax({
-    url: '/routes',
-    method: 'POST',
-    data: { route: { start: start, goal: goal, user_id: user_id } }
-  });
-  
+  })
 }

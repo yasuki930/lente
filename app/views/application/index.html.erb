@@ -1,4 +1,6 @@
 <div class='bg-color-navy'>
+<!-- ログインしていないときログインボタンを表示>
+<!-- ログインしたらログアウトボタンを表示-->
 <% if user_signed_in? %>
   <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
 <% else %>
