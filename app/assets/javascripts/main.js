@@ -53,6 +53,11 @@ function initialize() {
   map = new google.maps.Map(document.getElementById("map"), mapOptions);
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+  
+  var inputStart = document.getElementById('start');         
+  var autocomplete = new google.maps.places.Autocomplete(inputStart, { types: ["geocode"]});
+  var inputEnd = document.getElementById('end');         
+  var autocomplete = new google.maps.places.Autocomplete(inputEnd, { types: ["geocode"]});
 }
 //ルート検索を押したときの処理
 function calcRoute() {
