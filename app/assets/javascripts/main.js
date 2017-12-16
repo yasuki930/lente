@@ -26,7 +26,6 @@ function annaisakusei(directionResult) {
     }else{ //最初のステップだけは目的地を向くようにしてる
       var url_g = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.steps[0].end_location.lat() + "," + myRoute.steps[0].end_location.lng() + "&heading=" + houkou_s;
       target.innerHTML += "ステップ"+[i+1]+myRoute.steps[i].instructions+"．距離は"+myRoute.steps[i].distance.text + "です．<br><img src=" + url_g + "><br>";
-    console.log(from)
     }
   }
   // 到着の文章
@@ -82,6 +81,7 @@ function calcRoute() {
       directionsDisplay.setPanel(document.getElementById('directionsPanel')); //案内文作成
       annaisakusei(response); //案内図作成
       convenience_store_search();//コンビニ位置検索と表示
+      createMarker2(response);//ステップ毎にマーカーを置く
     }else{
        var target = document.getElementById("annaizu");
        target.innerHTML = "検索に失敗しました．";
@@ -135,13 +135,26 @@ function callback(results, status) {
 
 function createMarker(place) {
   var placeLoc = place.geometry.location;
+  var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
   var marker = new google.maps.Marker({
     map: map,
-    position: place.geometry.location
+    position: place.geometry.location,
+    icon: image
   })
 
   google.maps.event.addListener(marker, 'click', function(){
     infowindow.setContent(place.name);
     infowindow.open(map, this);
   })
+}
+// ステップ毎にマーカーを置く
+function createMarker2(directionResult){
+  var myRoute = directionResult.routes[0].legs[0];
+  for (var i = 0; i < myRoute.steps.length ; i++) {
+    var markerstep = myRoute.steps[i].end_location
+    var marker = new google.maps.Marker({
+      position: markerstep,
+      map: map,
+    });
+  }
 }
