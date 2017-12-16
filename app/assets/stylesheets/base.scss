@@ -11,5 +11,12 @@ body {
   .bg-color-white {
     background-color: white;
   }
+  
 }
-
+.actions {
+  //ログインするボタンの見た目
+  input {
+    width: 200px;
+    height: 30px;
+  }
+}
