@@ -49,13 +49,14 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
-  console.log(place);
-  var placeLoc = place.geometry.location;
+  var host = location.hostname ;
+  var protocol = location.protocol ;
+  var imageurl = protocol + "//" + host + "/conbini15.png" ;
   var marker = new google.maps.Marker({
     map: map,
-    position: place.geometry.location
-  })
-
+    position: place.geometry.location,
+    icon: imageurl
+  });
   google.maps.event.addListener(marker, 'click', function(){
     infowindow.setContent(place.name);
     infowindow.open(map, this);

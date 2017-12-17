@@ -1,5 +1,6 @@
 //検索されたルート
 var route;
+var markers = [];
 // 案内図作成用ファンクション
 function annaisakusei(directionResult) {
   var myRoute = directionResult.routes[0].legs[0];
@@ -37,7 +38,10 @@ function annaisakusei(directionResult) {
 }
 // Onload時処理
 var map;      //マップのインスタンス
-var directionsDisplay = new google.maps.DirectionsRenderer(); //ルートを表示するAPIのインスタンス
+var directionsDisplay = new google.maps.DirectionsRenderer({
+          draggable: true,
+});
+//ルートを表示するAPIのインスタンス
 var directionsService = new google.maps.DirectionsService(); //ルート検索のAPIのインスタンス
 var myLatLng = {lat: 35.602807, lng: 139.684494}; //初期位置はAGL事務室
 function initialize() {
@@ -51,11 +55,15 @@ function initialize() {
   map = new google.maps.Map(document.getElementById("map"), mapOptions);
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById('directionsPanel'));
-  
   var inputStart = document.getElementById('start');         
   var autocomplete = new google.maps.places.Autocomplete(inputStart, { types: ["geocode"]});
   var inputEnd = document.getElementById('end');         
   var autocomplete = new google.maps.places.Autocomplete(inputEnd, { types: ["geocode"]});
+  directionsDisplay.addListener('directions_changed', function() {
+    annaisakusei(directionsDisplay.getDirections());
+    markerkesu();
+    createMarker2(directionsDisplay.getDirections());
+  });
 }
 //ルート検索を押したときの処理
 function calcRoute() {
@@ -87,6 +95,7 @@ function calcRoute() {
        target.innerHTML = "検索に失敗しました．";
     }
   });
+  // 顧客データ書き込み
   saveCustomerData(start, end);
 }
 
@@ -102,54 +111,6 @@ function saveCustomerData(start, goal) {
   })
 }
 
-function convenience_store_search (){//コンビニ位置の追加
-  var infowindow;
-
-  infowindow = new google.maps.InfoWindow();
-  var service = new google.maps.places.PlacesService(map);
-
-  var pathList = [];
-  for (var i = 0; i < route.steps.length; i++) {
-    var stepPoint = {lat: route.steps[i].path[0].lat(), lng: route.steps[i].path[0].lng()};
-    pathList.push(stepPoint);
-  }
-
-  // console.log(pathList);
-  for(i = 0; i < pathList.length; i++) {
-    service.nearbySearch({
-      location: pathList[i],
-      radius: 500,
-      type: ['convenience_store']
-    }, callback);
-  }
-
-}
-
-function callback(results, status) {
-  if (status === google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      createMarker(results[i]);
-    }
-  }
-}
-
-function createMarker(place) {
-  var placeLoc = place.geometry.location;
-  var host = location.hostname ;
-  var protocol = location.protocol ;
-  var imageurl = protocol + "//" + host + "/conbini15.png" ;
-  var marker = new google.maps.Marker({
-    map: map,
-    position: place.geometry.location,
-    icon: imageurl
-  })
-
-  google.maps.event.addListener(marker, 'click', function(){
-    infowindow.setContent(place.name);
-    infowindow.open(map, this);
-  })
-}
-// ステップ毎にマーカーを置く
 function createMarker2(directionResult){
   var myRoute = directionResult.routes[0].legs[0];
   for (var i = 0; i < myRoute.steps.length ; i++) {
@@ -158,30 +119,16 @@ function createMarker2(directionResult){
       position: markerstep,
       map: map,
     });
+    markers.push(marker);
+  };
+};
+
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
   }
 }
 
-// function(){
-//   // 固定する場所が存在することの確認
-//   if( $('.fixing-base .fixing-box').length > 0 ){
-//     var baseSelector = '.fixing-base'
-//     var fixingSelector = baseSelector + ' .fixing-box'
-
-//     $(window).on('load scroll resize', function(){
-//       var baseTop = $(baseSelector).offset().top
-
-//       //固定開始位置より後にスクロールされた場合
-//       if( $(window).scrollTop() > baseTop ){
-//         $(fixingSelector).addClass('fixed')
-//         $(baseSelector).height($(fixingSelector).outerHeight())
-//         $(fixingSelector).width($(baseSelector).width())
-
-//       //固定開始位置以前にスクロールされた場合
-//       } else {
-//         $(fixingSelector).removeClass('fixed')
-//         $(baseSelector).height('')
-//         $(fixingSelector).width('')
-//       }
-//     })
-//   }
-// }
+function markerkesu(){
+  setMapOnAll(null);
+};
