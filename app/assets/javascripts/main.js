@@ -13,7 +13,7 @@ function annaisakusei(directionResult) {
   var from_s = {lat: myRoute.start_location.lat, lng: myRoute.start_location.lng};
   var to_s = {lat: myRoute.steps[0].end_location.lat, lng: myRoute.steps[0].end_location.lng};
   var houkou_s = google.maps.geometry.spherical.computeHeading(from_s, to_s);
-  var url_start = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.start_location.lat() + "," + myRoute.start_location.lng() + "&heading=" + houkou_s;
+  var url_start = "https://maps.googleapis.com/maps/api/streetview?size=400x300&location=" + myRoute.start_location.lat() + "," + myRoute.start_location.lng() + "&heading=" + houkou_s;
   // 書き出し
   target.innerHTML += "<img src=" + url_start + "><br>";
   // for文でステップ毎にみてるもし書くならここで緯度経度計算して方向ださせる
@@ -22,10 +22,10 @@ function annaisakusei(directionResult) {
       var from = {lat: myRoute.steps[i-1].end_location.lat, lng: myRoute.steps[i-1].end_location.lng};
       var to = {lat: myRoute.steps[i].end_location.lat, lng: myRoute.steps[i].end_location.lng};
       var houkou = google.maps.geometry.spherical.computeHeading(from, to);
-      var url = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.steps[i].end_location.lat() + "," + myRoute.steps[i].end_location.lng() + "&heading=" + houkou;
+      var url = "https://maps.googleapis.com/maps/api/streetview?size=400x300&location=" + myRoute.steps[i].end_location.lat() + "," + myRoute.steps[i].end_location.lng() + "&heading=" + houkou;
       target.innerHTML += "ステップ"+[i+1]+myRoute.steps[i].instructions+"．距離は"+myRoute.steps[i].distance.text + "です．<br><img src=" + url + "><br>";
     }else{ //最初のステップだけは目的地を向くようにしてる
-      var url_g = "https://maps.googleapis.com/maps/api/streetview?size=1600x400&location=" + myRoute.steps[0].end_location.lat() + "," + myRoute.steps[0].end_location.lng() + "&heading=" + houkou_s;
+      var url_g = "https://maps.googleapis.com/maps/api/streetview?size=400x300&location=" + myRoute.steps[0].end_location.lat() + "," + myRoute.steps[0].end_location.lng() + "&heading=" + houkou_s;
       target.innerHTML += "ステップ"+[i+1]+myRoute.steps[i].instructions+"．距離は"+myRoute.steps[i].distance.text + "です．<br><img src=" + url_g + "><br>";
     }
   }
