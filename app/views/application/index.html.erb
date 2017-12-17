@@ -18,6 +18,11 @@
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">お問い合わせ</a>
             </li>
+              <% if user_signed_in? %>
+          <li class="nav-item mx-0 mx-lg-1">
+                  <%= link_to "ログアウト", destroy_user_session_path, method: :delete ,class:"nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"%>
+              <% end %>
+          </li>
           </ul>
         </div>
       </div>
