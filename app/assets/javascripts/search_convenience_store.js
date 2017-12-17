@@ -30,9 +30,10 @@ for (var i = 0; i < pathList.length - 1 ; i++) {
     service.nearbySearch({
       location: pathList[i],
       //半径10mの範囲でコンビニを検索
-      radius: 100,
+      radius: 10,
       //コンビニを探してるよ
-      type: ['convenience_store']
+      //type: ['convenience_store']
+      type:['restaurant']
  
     }, callback);
   }
