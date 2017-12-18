@@ -18,6 +18,11 @@
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">お問い合わせ</a>
             </li>
+              <% if user_signed_in? %>
+          <li class="nav-item mx-0 mx-lg-1">
+                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete ,class:"nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"%>
+             <% end %>
+          </li>
           </ul>
         </div>
       </div>
@@ -27,10 +32,11 @@
     <header class="masthead bg-primary text-white text-center">
       <div class="container">
         <img class="img-fluid mb-5 d-block mx-auto" src="img/logo.png" alt="">
-        <h2 class="font-weight-light mb-0" style="font-size: 1.3rem;">事前に目的地を設定し、<br>
-        地図情報をスムーズに調べるためのサービスです。<br>
+        <h2 class="font-weight-light mb-0" style="font-size: 1.3rem;">
+        スムーズに安心してお出かけするための<br>
+        事前のルート検索サービスです。<br>
         目的地までの経路や経路の周辺の建物の様子を<br>
-        調べることが出来ます。</h2>
+        簡単に調べることが出来ます。</h2>
       </div>
       <%= form_for(User.new, url: new_user_session_path) do |f| %>
         <div class="field">
@@ -59,7 +65,8 @@
         <br>
         <h2 class="font-weight-light mb-0">
         <span style="line-height:150%;font-size: 1.3rem;">
-          <center>Lenteとは目的地までのルート沿いの様子が簡単にわかるルート検索サービスです。<br>
+          <center>Lenteとは事前のルート検索に特化した、<br>
+          目的地までのルート沿いの様子が簡単にわかるルート検索サービスです。<br>
           視力や視野に困難を抱える方でも<br>楽しくお出かけができることを目指します。</span></center>
       </div>
     </section>
@@ -76,9 +83,11 @@
        　<br><img src="img/howtouse1.png" width="500" height="400"><br>
        　使い方②メールアドレスとパスワードを入力。Sign Up ボタンを押す。
        　<br><img src="img/howtouse2.png" width="500" height="400"><br>
-       　使い方③出発地と目的地を入力し、ルート検索ボタンをクリック。目的地までのルートとリートの曲がり角の風景が一覧で確認できます。※ルートが最短距離です。ルートをドラッグすることで変更もできます。
+       　使い方③出発地と目的地を入力し、ルート検索ボタンをクリック。<br>
+       　目的地までのルートとリートの曲がり角の風景が一覧で確認できます。<br>
+       　※最短距離のルートを示します。地図上のルートをドラッグすることで新しいルートの検索もできます。
        　<br><img src="img/howtouse3.png" width="500" height="400"><br>
-         使い方④印刷ボタンクリック。ルートとその曲がり角の写真一覧が印刷できます。
+         使い方④印刷ボタンをクリック。ルートとその曲がり角の写真一覧が印刷できます。
          <br><img src="img/howtouse4.png" width="500" height="400"><br>
       </div>
     </section>
@@ -89,7 +98,7 @@
         <h2 class="text-center text-uppercase text-secondary mb-0"><u>お問い合わせ</u></h2>
         <br>
         <h2 class="font-weight-light mb-0" style="line-height:150%;font-size: 1.3rem;">
-          <center>LenteとはAGLの学生たちのチームが作ったプロダクトです．</center>
+          <center>Lenteとは東工大AGLの学生たちのチームが作ったプロダクトです．</center>
         </h2>
         <div class="row">
           <div class="col-lg-8 mx-auto">

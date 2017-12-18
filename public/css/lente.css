@@ -1,7 +1,13 @@
 .bg-primary {
     background-color: #1b1b2d!important;
+    /*紺*/
 }
 
 .bg-secondary {
     background-color: #ffd464!important;
+    /*黄色*/
+}
+
+.signup {
+    margin-top: 120px;
 }
