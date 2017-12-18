@@ -86,16 +86,16 @@ section {
   font-weight: 700;
   font-family: 'Montserrat'; }
   #mainNav .navbar-brand {
-    color: #fff; }
+    color: #0066FF; }
   #mainNav .navbar-nav {
     margin-top: 1rem;
     letter-spacing: 0.0625rem; }
     #mainNav .navbar-nav li.nav-item a.nav-link {
-      color: #fff; }
+      color: #0066FF; }
       #mainNav .navbar-nav li.nav-item a.nav-link:hover {
         color: #18BC9C; }
       #mainNav .navbar-nav li.nav-item a.nav-link:active, #mainNav .navbar-nav li.nav-item a.nav-link:focus {
-        color: #fff; }
+        color: #0066FF; }
       #mainNav .navbar-nav li.nav-item a.nav-link.active {
         color: #18BC9C; }
   #mainNav .navbar-toggler {
@@ -117,16 +117,16 @@ section {
     #mainNav .navbar-nav {
       margin-top: 0; }
     #mainNav .navbar-nav > li.nav-item > a.nav-link.active {
-      color: #fff;
+      color: #0066FF;
       background: #18BC9C; }
       #mainNav .navbar-nav > li.nav-item > a.nav-link.active:active, #mainNav .navbar-nav > li.nav-item > a.nav-link.active:focus, #mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover {
-        color: #fff;
+        color: #0066FF;
         background: #18BC9C; }
   #mainNav.navbar-shrink {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem; }
     #mainNav.navbar-shrink .navbar-brand {
-      font-size: 1.5em; } }
+      font-size: 1.5em; } 
 
 header.masthead {
   padding-top: calc(6rem + 72px);
@@ -245,7 +245,7 @@ form .row:first-child .floating-label-form-group {
   padding-top: 5rem;
   padding-bottom: 5rem;
   background-color: #2C3E50;
-  color: #fff; }
+  color: #0066FF; }
 
 .copyright {
   background-color: #1a252f; }
@@ -266,10 +266,10 @@ a {
 
 .text-primary {
   color: #18BC9C !important; }
-
+/*みどり*/
 .text-secondary {
   color: #2C3E50 !important; }
-
+/*灰色味の紺*/
 .btn-primary {
   background-color: #18BC9C;
   border-color: #18BC9C; }
